@@ -56,6 +56,9 @@ class UwUinator:
         return self.file_size
     
     def get_filled(self) -> str:
+        '''
+        Gets the total space filled by the UwUinator.
+        '''
         units = ('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
 
         power = int(math.log(self.size * self.counter, 1024))
@@ -63,17 +66,26 @@ class UwUinator:
         return f"{self.size * self.counter / (1024 ** power):.2f} {units[power]}"
 
     def _get_mbps(self, file_amt: int, time: int) -> float:
+        '''
+        Gets the average write speed of the UwUinator.
+        '''
         return round((file_amt * ((self.size / 1024) / 1024)) / (time * 60), 2)
 
     async def copy(self) -> bool:
+        '''
+        Copies the file to the specified path.
+        '''
         try:
-            with open(f"{self.path}\\UwU-{uuid.uuid4()}.jpg", "wb") as f:
+            with open(f"{self.path}\\UwU-{uuid.uuid4()}.{self.file.split('\\')[-1].split('.')[-1]}", "wb") as f:
                 f.write(self.data)
             return True
         except:
             return False
 
     async def uwuinator(self) -> None:
+        '''
+        The main function of the UwUinator.
+        '''
         self.counter = 0
 
         while True:
@@ -110,6 +122,9 @@ class UwUinator:
 
     @classmethod
     async def start(cls) -> None:
+        '''
+        Starts the UwUinator.
+        '''
         print("Welcome to the UwUinator! v.1.5.1")
 
         while True:
