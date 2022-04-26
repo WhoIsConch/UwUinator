@@ -25,7 +25,7 @@ To run the UwUinator, you must have Python 3 installed.
 The UwUinator does not use any libraries that do not come with Python.
 
 ```
-py uwuinator_5.exe
+py uwuinator_5.py
 ```
 
 ## Contributing
