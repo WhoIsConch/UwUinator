@@ -75,8 +75,9 @@ class UwUinator:
         '''
         Copies the file to the specified path.
         '''
+        path = self.path + "\\UwU-" + str(uuid.uuid4()) + "." + str(self.file.split('\\')[-1].split('.')[-1])
         try:
-            with open(f"{self.path}\\UwU-{uuid.uuid4()}.{self.file.split('\\')[-1].split('.')[-1]}", "wb") as f:
+            with open(path, "wb") as f:
                 f.write(self.data)
             return True
         except:
@@ -140,18 +141,22 @@ class UwUinator:
             else:
                 break
         
-        file = os.path.exists(os.getcwd() + "\\img.jpg")
 
-        if not file:
+        # Get the path to img.jpg relative to the file
+        fp = os.path.join(os.path.dirname(__file__), "img.jpg")
+
+        file_exists = os.path.exists(fp)
+
+        if not file_exists:
             while True:
-                file = input("Image file not found. Enter the path to the image file now: ")
+                fp = input("Image file not found. Enter the path to the image file now: ")
 
-                if not os.path.exists(file):
+                if not os.path.exists(fp):
                     continue
                 else:
                     break
 
-        uwu = cls(path, file) 
+        uwu = cls(path, fp) 
         
         print("UwUinating...")
         await uwu.uwuinator()
