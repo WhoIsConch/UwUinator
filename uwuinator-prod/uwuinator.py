@@ -39,14 +39,15 @@ PERSONAL TESTS:
 """
 
 class UwUinator:
-    def __init__(self, path: str = "E:", file: str = os.getcwd() + "\\img.jpg") -> None:
+    def __init__(self, path: str, file: str, amount: int | bool) -> None:
         self.path = path
+        self.file = file
+        self.file_size = os.path.getsize(self.file)
+        self.amt = amount
         self.startime = time.time()
         self.t1 = time.time()
         self.minute = 0
         self.counter = 0
-        self.file = file
-        self.file_size = os.path.getsize(self.file)
         self.speeds = []
         self.path_space = shutil.disk_usage(self.path).free
 
@@ -62,6 +63,9 @@ class UwUinator:
         Gets the total space filled by the UwUinator.
         '''
         units = ('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB')
+
+        if self.counter == 0:
+            return "0 MB"
 
         power = int(math.log(self.size * self.counter, 1024))
 
@@ -92,6 +96,21 @@ class UwUinator:
         self.counter = 0
 
         while True:
+
+            filled = self.get_filled()
+
+            if self.amt:
+                if filled.endswith('MiB'):
+                    if self.amt >= int(filled.split(' ')[0]):
+                        break
+                
+                elif filled.endswith('GiB'):
+                    if self.amt * 1024 >= int(filled.split(' ')[0]):
+                        break
+                
+                elif filled.endswith('TiB'):
+                    if self.amt * 1024 * 1024 >= int(filled.split(' ')[0]):
+                        break
 
             status = await self.copy()
             
@@ -135,40 +154,28 @@ class UwUinator:
         print(f"Amount of drive filled by UwUinator: {self.get_filled()}")
 
     @classmethod
-    async def start(cls) -> None:
+    async def start(cls, path: str, file: str, amount: int | bool) -> None:
         '''
         Starts the UwUinator.
         '''
         print("Welcome to the UwUinator! v.1.5.4")
-
-        while True:
-            path = input("Please enter the path to the folder or drive you want to UwUinate (empty for C:\): ")
-
-            if path == "":
-                path = "C:"
-                break
-
-            elif not os.path.exists(path):
-                print("Invalid path.")
-                continue
-            else:
-                break
         
-        fp = os.path.join(os.path.dirname(__file__), "img.jpg")
+        if not file:
+            file = os.path.join(os.path.dirname(__file__), "img.jpg")
 
-        file_exists = os.path.exists(fp)
+            file_exists = os.path.exists(file)
 
-        # Check if the local file exists, and ask the userto provide that path to it if it does not.
-        if not file_exists:
-            while True:
-                fp = input("Image file not found. Enter the path to the image file now: ")
+            # Check if the local file exists, and ask the userto provide that path to it if it does not.
+            if not file_exists:
+                while True:
+                    fp = input("Image file not found. Enter the path to the image file now: ")
 
-                if not os.path.exists(fp):
-                    continue
-                else:
-                    break
+                    if not os.path.exists(fp):
+                        continue
+                    else:
+                        break
 
-        uwu = cls(path, fp) 
+        uwu = cls(path, file, amount) 
         
         print("UwUinating...")
         await uwu.uwuinator()
