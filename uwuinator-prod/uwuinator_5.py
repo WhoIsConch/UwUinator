@@ -3,6 +3,7 @@ import uuid
 import os
 import asyncio
 import math
+import shutil
 
 """
 UwUinator 5.0 copies the same image multiple times to a specified path using async I/O.
@@ -47,6 +48,7 @@ class UwUinator:
         self.file = file
         self.file_size = os.path.getsize(self.file)
         self.speeds = []
+        self.path_space = shutil.disk_usage(self.path).free
 
         with open(self.file, "rb") as f:
             self.data = f.read()
@@ -106,27 +108,38 @@ class UwUinator:
             if time.time() - self.t1 >= 60:
                 self.minute += 1
                 self.t1 = time.time()
+
+                self.path_space = shutil.disk_usage(self.path).free
+
+                time_taken = time.time() - self.startime
+
+                time_left = round(((self.path_space / (self.size * self.counter)) * time_taken)/60, 2)
+                
+
+                curr_speed = self._get_mbps(self.counter, self.minute)
+                self.speeds.append(curr_speed)
+
                 print(
                     f"Approximately {self.minute} minutes have passed so far ({round((self.t1 - self.startime)/60, 2)} minutes).\n"
                     "Stats:\n"
                     f"  Files Written: {self.counter}\n"
                     f"  Approximate Speed: {self._get_mbps(self.counter, self.minute)} MB/s\n"
                     f"  Amount of drive filled: {self.get_filled()}\n"
+                    f"  Time until complete: approx. {time_left} Minutes\n"
                     )
                 
-                self.speeds.append(self._get_mbps(self.counter, self.minute))
 
         print(f"UwUinator finished in {round(time.time() - self.startime)} seconds ({round((time.time() - self.startime)/60, 2)} minutes).")
         print(f"Files created: {self.counter}")
         print(f"Average speed: {round(sum(self.speeds) / len(self.speeds), 2)} MB/s")
-        print(f"Amount of drive filled: {self.get_filled()}")
+        print(f"Amount of drive filled by UwUinator: {self.get_filled()}")
 
     @classmethod
     async def start(cls) -> None:
         '''
         Starts the UwUinator.
         '''
-        print("Welcome to the UwUinator! v.1.5.1")
+        print("Welcome to the UwUinator! v.1.5.4")
 
         while True:
             path = input("Please enter the path to the folder or drive you want to UwUinate (empty for C:\): ")
@@ -141,12 +154,11 @@ class UwUinator:
             else:
                 break
         
-
-        # Get the path to img.jpg relative to the file
         fp = os.path.join(os.path.dirname(__file__), "img.jpg")
 
         file_exists = os.path.exists(fp)
 
+        # Check if the local file exists, and ask the userto provide that path to it if it does not.
         if not file_exists:
             while True:
                 fp = input("Image file not found. Enter the path to the image file now: ")
