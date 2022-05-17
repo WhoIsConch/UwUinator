@@ -155,11 +155,11 @@ class UwUinator:
         print(f"Amount of drive filled by UwUinator: {self.get_filled()}")
 
     @classmethod
-    async def start(cls, path: str, amount: int | bool, file: str=None, ) -> None:
+    async def start(cls, path: str, amount: int | bool, file: str=None) -> None:
         '''
         Starts the UwUinator.
         '''
-        print("Welcome to the UwUinator! v.1.5.4")
+        print("Welcome to the UwUinator! v.1.5.5")
         
         if not file:
             file = os.path.join(os.path.dirname(__file__), "img.jpg")
@@ -181,7 +181,5 @@ class UwUinator:
         print("UwUinating...")
         await uwu.uwuinator()
 
-        
-
 if __name__ == "__main__":
-    asyncio.run(UwUinator.start("E:", False))
+    print("Please run the UwUinator via the included run.py file.")
