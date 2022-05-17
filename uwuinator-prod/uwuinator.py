@@ -96,20 +96,19 @@ class UwUinator:
         self.counter = 0
 
         while True:
-
             filled = self.get_filled()
 
             if self.amt:
                 if filled.endswith('MiB'):
-                    if self.amt >= int(filled.split(' ')[0]):
+                    if self.amt <= float(filled.split(' ')[0]):
                         break
                 
                 elif filled.endswith('GiB'):
-                    if self.amt * 1024 >= int(filled.split(' ')[0]):
+                    if self.amt * 1024 <= float(filled.split(' ')[0]):
                         break
                 
                 elif filled.endswith('TiB'):
-                    if self.amt * 1024 * 1024 >= int(filled.split(' ')[0]):
+                    if self.amt * 1024 * 1024 <= float(filled.split(' ')[0]):
                         break
 
             status = await self.copy()
@@ -146,11 +145,13 @@ class UwUinator:
                     f"  Amount of drive filled: {self.get_filled()}\n"
                     f"  Time until complete: approx. {time_left} Minutes\n"
                     )
-                
 
         print(f"UwUinator finished in {round(time.time() - self.startime)} seconds ({round((time.time() - self.startime)/60, 2)} minutes).")
         print(f"Files created: {self.counter}")
-        print(f"Average speed: {round(sum(self.speeds) / len(self.speeds), 2)} MB/s")
+        try:
+            print(f"Average speed: {round(sum(self.speeds) / len(self.speeds), 2)} MB/s")
+        except ZeroDivisionError:
+            print("Average speed: N/A")
         print(f"Amount of drive filled by UwUinator: {self.get_filled()}")
 
     @classmethod
