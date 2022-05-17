@@ -154,7 +154,7 @@ class UwUinator:
         print(f"Amount of drive filled by UwUinator: {self.get_filled()}")
 
     @classmethod
-    async def start(cls, path: str, file: str, amount: int | bool) -> None:
+    async def start(cls, path: str, amount: int | bool, file: str=None, ) -> None:
         '''
         Starts the UwUinator.
         '''
@@ -165,7 +165,7 @@ class UwUinator:
 
             file_exists = os.path.exists(file)
 
-            # Check if the local file exists, and ask the userto provide that path to it if it does not.
+            # Check if the local file exists, and ask the user to provide that path to it if it does not.
             if not file_exists:
                 while True:
                     fp = input("Image file not found. Enter the path to the image file now: ")
@@ -183,4 +183,4 @@ class UwUinator:
         
 
 if __name__ == "__main__":
-    asyncio.run(UwUinator.start())
+    asyncio.run(UwUinator.start("E:", False))
