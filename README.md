@@ -1,8 +1,6 @@
 # Welcome to the UwUinator!
 
-This repository contains all of the past and present UwUinators. The most stable one can be found in the uwuinator-tests directory.
-
-### What It Does
+## What It Does
 
 The UwUinator fills a specified path with UwU Files until the script is either stopped or the drive runs out of storage space. 
 
