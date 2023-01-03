@@ -38,17 +38,13 @@ if not os.path.exists(args.path):
     print(f"The specified path, \"{args.path}\", does not exist.")
     sys.exit(1)
 
+if args.file and not os.path.exists(args.file):
+    print(f"The specified file, \"{args.file}\", does not exist.")
+    sys.exit(1)
 
-if args.file:
-    if not os.path.exists(args.file):
-        print(f"The specified file, \"{args.file}\", does not exist.")
-        sys.exit(1)
-
-if args.amount:
-    if args.amount < 1:
-        print("The amount of storage must be greater than 0.")
-        sys.exit(1)
-
+if args.amount and args.amount < 1:
+    print("The amount of storage must be greater than 0.")
+    sys.exit(1)
 
 
 asyncio.run(UwUinator.start(**vars(args)))
