@@ -3,7 +3,6 @@ import uuid
 import os
 import math
 import shutil
-import typing
 
 """
 UwUinator 5.0 copies the same image multiple times to a specified path using async I/O.
@@ -48,7 +47,7 @@ class UwUinator:
         self.t1 = time.time()
         self.minute = 0
         self.counter = 0
-        self.speeds: typing.List[float] = []
+        self.speeds: list[float] = []
         self.path_space = shutil.disk_usage(self.path).free
 
         with open(self.file, "rb") as f:
