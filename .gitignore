@@ -2,3 +2,4 @@ __pycache__/
 uwuinator-archive/
 .vscode/
 .mypy_cache/
+venv/
