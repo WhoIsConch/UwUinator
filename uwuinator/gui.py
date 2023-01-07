@@ -14,7 +14,7 @@ layout = [
         sg.FileBrowse(key="file")
     ],
     [
-        sg.Text("Amount of storage to UwUinate"),
+        sg.Text("Amount of storage to UwUinate (in mb)"),
         sg.InputText(key='amount')
     ],
     [
@@ -35,12 +35,18 @@ while True:
         break
 
     if event == 'start':
-        # if values["amount"] and not isinstance(values["amount"], int):
-        #     window["amount"].update()
-
-        window['start'].update(disabled=True)
-        window['amount'].update(disabled=True)
-        window['file'].update(disabled=True)
-        window['path'].update(disabled=True)
+        trigger = True
+        if values["amount"]:
+            try:
+                values["amount"] = int(values["amount"])
+            except ValueError:
+                sg.Popup("Amount of storage must be empty or an integer!")
+                trigger = False
+        
+        if trigger:
+            window['start'].update(disabled=True)
+            window['amount'].update(disabled=True)
+            window['file'].update(disabled=True)
+            window['path'].update(disabled=True)
 
 window.close()
