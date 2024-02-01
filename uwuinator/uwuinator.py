@@ -9,31 +9,31 @@ UwUinator 5.0 copies the same image multiple times to a specified path using asy
 
 PERSONAL TESTS:
 
-- 4gb Memorex drive:
-    - Real Space: 3.6gb
+- 4GB Memorex drive:
+    - Space in Gigabits: 3.6Gb
 
     - Time to fill: 15.36 Minutes
     - Average Speed: 4.25 MB/s
     - Total files copied: 454
-    - Amount Filled: 3.6gb
+    - Amount Filled: 3.6Gb
 
 - Phoenix 128gb Samsung Flash Drive:
-    - Real Space: 119gb
+    - Space in Gigabits: 119Gb
 
     - TEST 1:
         - Time to fill: Not filled. Test for 30 Gigabytes.
         - Average speed: 51.12 MB/s
         - Total files copied: 5150
-        - Amount Filled: 32.74gb
+        - Amount Filled: 32.74Gb
 
 - Louis 4GB DVD-RW:
-    - Real Space: 4.25gb
+    - Space in Gigabits: 4.25Gb
 
     - TEST 1:
         - Time to fill: 28.97 Minutes
         - Average speed: 2.56 MB/s
         - Total files copied: 668
-        - Amount Filled: 4.25gb
+        - Amount Filled: 4.25Gb
 
 """
 
